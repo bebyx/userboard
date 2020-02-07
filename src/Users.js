@@ -1,7 +1,17 @@
 import React from 'react';
 
+import NotesForm from './NotesForm';
+import AllNotes from './AllNotes';
+
+
 function Users() {
-  return <h2>Users</h2>;
+  return (
+  	<>
+  	<NotesForm/>
+  	<hr/>
+  	<AllNotes/>
+  	</>
+  	);
 }
 
 export default Users;
