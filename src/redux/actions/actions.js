@@ -43,7 +43,7 @@ function receivePosts(subreddit, json) {
   return {
     type: RECEIVE_POSTS,
     subreddit,
-    posts: json.data.children.map(child => child.data),
+    posts: json.map(child => child),
     receivedAt: Date.now()
   }
 }
@@ -51,11 +51,12 @@ function receivePosts(subreddit, json) {
 function fetchPosts(subreddit) {
   return dispatch => {
     dispatch(requestPosts(subreddit))
-    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
+    return fetch(`https://jsonplaceholder.typicode.com/${subreddit}`)
       .then(response => response.json())
       .then(json => dispatch(receivePosts(subreddit, json)))
   }
 }
+
 function shouldFetchPosts(state, subreddit) {
   const posts = state.postsBySubreddit[subreddit]
   if (!posts) {
