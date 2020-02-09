@@ -8,7 +8,7 @@ function Users() {
   return (
   	<>
   	<NotesForm/>
-  	<hr/>
+  	<hr/>	
   	<AllNotes/>
   	</>
   	);

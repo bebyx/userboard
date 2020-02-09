@@ -9,7 +9,7 @@ import {
   useParams
 } from "react-router-dom";
 import Users from './Users'
-
+import AsyncApp from './AsyncApp'
 
 function App() {
   return (
@@ -42,7 +42,7 @@ function App() {
 }
 
 function Home() {
-  return <h2>Home</h2>;
+  return <AsyncApp />;
 }
 
 export default App;

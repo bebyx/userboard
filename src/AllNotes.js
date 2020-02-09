@@ -9,7 +9,7 @@ class AllNotes extends Component {
   }
   
   render() {
-    const notesItems = this.props.notes.map((note, index) =>
+    const notesItems = this.props.notes.notes.map((note, index) =>
       <li key={ index }>
         <b>{ note.title }</b>
         <button onClick={ () => this.removeNote(index) }>x</button>
@@ -30,6 +30,8 @@ class AllNotes extends Component {
   }
   
 }
+
+
 
 const mapStateToProps = state => {
   return {
