@@ -13,8 +13,9 @@ class Users extends Component {
     this.handleRefreshClick = this.handleRefreshClick.bind(this)
   }
   componentDidMount() {
+    this.props.dispatch(selectPage(this.props.slug))
     const { dispatch, selectedPage } = this.props
-    dispatch(fetchElementsIfNeeded(this.props.slug))
+    dispatch(fetchElementsIfNeeded(selectedPage))
   }
   componentDidUpdate(prevProps) {
     if (this.props.selectedPage !== prevProps.selectedPage) {

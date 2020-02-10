@@ -9,7 +9,7 @@ import {
   useParams
 } from "react-router-dom";
 import Users from './Users'
-import AsyncApp from './AsyncApp'
+import Posts from './Posts'
 
 function App() {
   return (
@@ -36,7 +36,7 @@ function App() {
             <Users slug="users" />
           </Route>
           <Route path="/posts">
-            <Posts />
+            <Posts slug="posts" />
           </Route>
           <Route path="/">
             <Home />
@@ -48,11 +48,7 @@ function App() {
 }
 
 function Home() {
-  return <AsyncApp />;
-}
-
-function Posts() {
-  return <h1>Posts</h1>
+  return <h1>Home</h1>;
 }
 
 export default App;
