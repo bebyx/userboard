@@ -32,7 +32,7 @@ class Users extends Component {
     const { selectedPage, elements, isFetching, lastUpdated } = this.props
     return (
       <div>
-        <h1> { this.props.slug }</h1>
+        <h1 style={ {textTransform: `capitalize`} }> { this.props.slug }</h1>
         <p>
           {lastUpdated && (
             <span>
