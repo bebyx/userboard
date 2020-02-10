@@ -50,7 +50,7 @@ class Users extends Component {
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
             <ul>
         		{elements.map((element, i) => (
-          			<li key={i}>{element.name}{element.title}</li>
+          			<li key={i}>{element.name}</li>
         		))}
      		</ul>
           </div>
