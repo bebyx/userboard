@@ -30,7 +30,7 @@ function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/users">
-            <Users />
+            <Users slug="users" />
           </Route>
           <Route path="/">
             <Home />

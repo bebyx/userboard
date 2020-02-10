@@ -1,16 +1,5 @@
 import fetch from 'cross-fetch'
 
-export const ADD_NOTE = 'ADD_NOTE';
-export const REMOVE_NOTE = 'REMOVE_NOTE';
-
-export function addNote(title, content) {
-  return { type: ADD_NOTE, title: title, content: content };
-}
-
-export function removeNote(id) {
-  return { type: REMOVE_NOTE, id: id };
-}
-
 //API
 export const REQUEST_ELEMENTS = 'REQUEST_ELEMENTS'
 export const RECEIVE_ELEMENTS = 'RECEIVE_ELEMENTS'

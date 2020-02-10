@@ -1,34 +1,9 @@
 import { combineReducers } from 'redux'
-import { 
-  ADD_NOTE, 
-  REMOVE_NOTE, 
+import {
   SELECT_PAGE,
   INVALIDATE_PAGE,
   REQUEST_ELEMENTS,
   RECEIVE_ELEMENTS } from '../actions/actions';
-
-function notes(state = { notes: [] }, action) {
-  switch(action.type) {
-    case ADD_NOTE:
-      return {
-        notes: [
-          ...state.notes,
-          {
-            title: action.title,
-            content: action.content
-          }
-        ]
-      };
-
-    case REMOVE_NOTE:
-      return {
-        notes: state.notes.filter((note, index) => index != action.id)
-      };
-
-    default:
-      return state;
-  };
-}
 
 function selectedPage(state = 'users', action) {
   switch (action.type) {
@@ -83,7 +58,6 @@ function elementsByPage(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-  notes,
   elementsByPage,
   selectedPage
 })
