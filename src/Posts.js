@@ -21,20 +21,20 @@ class Posts extends Component {
   componentDidUpdate(prevProps) {
     if (this.selectedPage !== prevProps.selectedPage) {
       const { dispatch, selectedPage } = this.props
-      dispatch(fetchElementsIfNeeded(this.props.slug))
+      dispatch(fetchElementsIfNeeded(selectedPage))
     }
   }
   handleRefreshClick(e) {
     e.preventDefault()
     const { dispatch, selectedPage } = this.props
-    dispatch(invalidatePage(this.props.slug))
-    dispatch(fetchElementsIfNeeded(this.props.slug))
+    dispatch(invalidatePage(selectedPage))
+    dispatch(fetchElementsIfNeeded(selectedPage))
   }
   render() {
     const { selectedPage, elements, isFetching, lastUpdated } = this.props
     return (
       <div>
-        <h1 style={ {textTransform: `capitalize`} }> { this.props.slug }</h1>
+        <h1 style={ {textTransform: `capitalize`} }> { selectedPage }</h1>
         <p>
           {lastUpdated && (
             <span>
