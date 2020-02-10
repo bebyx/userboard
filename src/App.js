@@ -23,6 +23,9 @@ function App() {
             <li>
               <Link to="/users">Users</Link>
             </li>
+            <li>
+              <Link to="/posts">Posts</Link>
+            </li>
           </ul>
         </nav>
 
@@ -31,6 +34,9 @@ function App() {
         <Switch>
           <Route path="/users">
             <Users slug="users" />
+          </Route>
+          <Route path="/posts">
+            <Posts />
           </Route>
           <Route path="/">
             <Home />
@@ -43,6 +49,10 @@ function App() {
 
 function Home() {
   return <AsyncApp />;
+}
+
+function Posts() {
+  return <h1>Posts</h1>
 }
 
 export default App;
