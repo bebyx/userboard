@@ -5,8 +5,8 @@ export default class Posts extends Component {
   render() {
     return (
       <ul>
-        {this.props.posts.map((post, i) => (
-          <li key={i}>{post.name}{post.title}</li>
+        {this.props.elements.map((element, i) => (
+          <li key={i}>{element.name}{element.title}</li>
         ))}
       </ul>
     )
@@ -14,5 +14,5 @@ export default class Posts extends Component {
 }
 
 Posts.propTypes = {
-  posts: PropTypes.array.isRequired
+  elements: PropTypes.array.isRequired
 }

@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
-  selectSubreddit,
-  fetchPostsIfNeeded,
-  invalidateSubreddit
+  selectPage,
+  fetchElementsIfNeeded,
+  invalidatePage
 } from './redux/actions/actions'
+
 import Picker from './Picker'
 import Posts from './Posts'
 
@@ -16,31 +17,31 @@ class AsyncApp extends Component {
     this.handleRefreshClick = this.handleRefreshClick.bind(this)
   }
   componentDidMount() {
-    const { dispatch, selectedSubreddit } = this.props
-    dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    const { dispatch, selectedPage } = this.props
+    dispatch(fetchElementsIfNeeded(selectedPage))
   }
   componentDidUpdate(prevProps) {
-    if (this.props.selectedSubreddit !== prevProps.selectedSubreddit) {
-      const { dispatch, selectedSubreddit } = this.props
-      dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    if (this.props.selectedPage !== prevProps.selectedPage) {
+      const { dispatch, selectedPage } = this.props
+      dispatch(fetchElementsIfNeeded(selectedPage))
     }
   }
-  handleChange(nextSubreddit) {
-    this.props.dispatch(selectSubreddit(nextSubreddit))
-    this.props.dispatch(fetchPostsIfNeeded(nextSubreddit))
+  handleChange(nextPage) {
+    this.props.dispatch(selectPage(nextPage))
+    this.props.dispatch(fetchElementsIfNeeded(nextPage))
   }
   handleRefreshClick(e) {
     e.preventDefault()
-    const { dispatch, selectedSubreddit } = this.props
-    dispatch(invalidateSubreddit(selectedSubreddit))
-    dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    const { dispatch, selectedPage } = this.props
+    dispatch(invalidatePage(selectedPage))
+    dispatch(fetchElementsIfNeeded(selectedPage))
   }
   render() {
-    const { selectedSubreddit, posts, isFetching, lastUpdated } = this.props
+    const { selectedPage, elements, isFetching, lastUpdated } = this.props
     return (
       <div>
         <Picker
-          value={selectedSubreddit}
+          value={selectedPage}
           onChange={this.handleChange}
           options={['users', 'posts']}
         />
@@ -54,11 +55,11 @@ class AsyncApp extends Component {
             <button onClick={this.handleRefreshClick}>Refresh</button>
           )}
         </p>
-        {isFetching && posts.length === 0 && <h2>Loading...</h2>}
-        {!isFetching && posts.length === 0 && <h2>Empty.</h2>}
-        {posts.length > 0 && (
+        {isFetching && elements.length === 0 && <h2>Loading...</h2>}
+        {!isFetching && elements.length === 0 && <h2>Empty.</h2>}
+        {elements.length > 0 && (
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-            <Posts posts={posts} />
+            <Posts elements={elements} />
           </div>
         )}
       </div>
@@ -66,23 +67,23 @@ class AsyncApp extends Component {
   }
 }
 AsyncApp.propTypes = {
-  selectedSubreddit: PropTypes.string.isRequired,
-  posts: PropTypes.array.isRequired,
+  selectedPage: PropTypes.string.isRequired,
+  elements: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
   lastUpdated: PropTypes.number,
   dispatch: PropTypes.func.isRequired
 }
 function mapStateToProps(state) {
-  const { selectedSubreddit, postsBySubreddit } = state
-  const { isFetching, lastUpdated, items: posts } = postsBySubreddit[
-    selectedSubreddit
+  const { selectedPage, elementsByPage } = state
+  const { isFetching, lastUpdated, items: elements } = elementsByPage[
+    selectedPage
   ] || {
     isFetching: true,
     items: []
   }
   return {
-    selectedSubreddit,
-    posts,
+    selectedPage,
+    elements,
     isFetching,
     lastUpdated
   }

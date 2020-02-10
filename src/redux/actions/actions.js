@@ -11,67 +11,66 @@ export function removeNote(id) {
   return { type: REMOVE_NOTE, id: id };
 }
 
-
 //API
-export const REQUEST_POSTS = 'REQUEST_POSTS'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
-export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
+export const REQUEST_ELEMENTS = 'REQUEST_ELEMENTS'
+export const RECEIVE_ELEMENTS = 'RECEIVE_ELEMENTS'
+export const SELECT_PAGE = 'SELECT_PAGE'
+export const INVALIDATE_PAGE = 'INVALIDATE_PAGE'
 
-export function selectSubreddit(subreddit) {
+export function selectPage(url) {
   return {
-    type: SELECT_SUBREDDIT,
-    subreddit
+    type: SELECT_PAGE,
+    url
   }
 }
 
-export function invalidateSubreddit(subreddit) {
+export function invalidatePage(url) {
   return {
-    type: INVALIDATE_SUBREDDIT,
-    subreddit
+    type: INVALIDATE_PAGE,
+    url
   }
 }
 
-function requestPosts(subreddit) {
+function requestElements(url) {
   return {
-    type: REQUEST_POSTS,
-    subreddit
+    type: REQUEST_ELEMENTS,
+    url
   }
 }
 
-function receivePosts(subreddit, json) {
+function receiveElements(url, json) {
   return {
-    type: RECEIVE_POSTS,
-    subreddit,
-    posts: json.map(child => child),
+    type: RECEIVE_ELEMENTS,
+    url,
+    elements: json.map(child => child),
     receivedAt: Date.now()
   }
 }
 
-function fetchPosts(subreddit) {
+function fetchElements(url) {
   return dispatch => {
-    dispatch(requestPosts(subreddit))
-    return fetch(`https://jsonplaceholder.typicode.com/${subreddit}`)
+    dispatch(requestElements(url))
+    return fetch(`https://jsonplaceholder.typicode.com/${url}`)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(subreddit, json)))
+      .then(json => dispatch(receiveElements(url, json)))
   }
 }
 
-function shouldFetchPosts(state, subreddit) {
-  const posts = state.postsBySubreddit[subreddit]
-  if (!posts) {
+function shouldFetchElements(state, url) {
+  const elements = state.elementsByPage[url]
+  if (!elements) {
     return true
-  } else if (posts.isFetching) {
+  } else if (elements.isFetching) {
     return false
   } else {
-    return posts.didInvalidate
+    return elements.didInvalidate
   }
 }
 
-export function fetchPostsIfNeeded(subreddit) {
+export function fetchElementsIfNeeded(url) {
   return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), subreddit)) {
-      return dispatch(fetchPosts(subreddit))
+    if (shouldFetchElements(getState(), url)) {
+      return dispatch(fetchElements(url))
     }
   }
 }
