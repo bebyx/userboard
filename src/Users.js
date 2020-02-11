@@ -48,11 +48,19 @@ class Users extends Component {
         {!isFetching && elements.length === 0 && <h2>Empty.</h2>}
         {elements.length > 0 && (
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-            <ul>
+          	<table>
         		{elements.map((element, i) => (
-          			<li key={i}>{element.name}</li>
+          			<tr key={i}>
+          				<th>{element.name}</th>
+          				<th>{element.username}</th>
+          				<th>Adress: {element.address.street} {element.address.suite} {element.address.city} {element.address.zipcode}</th>
+          				<th>Phone: {element.phone}</th>
+          				<th>Geo: {element.address.geo.lat} lat, {element.address.geo.lng} lng,</th>
+          				<th>Web: <a href={`http:/\/${element.website}`} target='_blank'>{element.website}</a></th>
+          				<th>Company: {element.company.name} Slogan: {element.company.catchPhrase} Niche: {element.company.bs}</th>
+          			</tr>
         		))}
-     		</ul>
+        	</table>
           </div>
         )}
       </div>
