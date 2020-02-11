@@ -24,6 +24,7 @@ class Posts extends Component {
       dispatch(fetchElementsIfNeeded(selectedPage))
     }
   }
+
   handleRefreshClick(e) {
     e.preventDefault()
     const { dispatch, selectedPage } = this.props
@@ -49,17 +50,21 @@ class Posts extends Component {
         {!isFetching && elements.length === 0 && <h2>Empty.</h2>}
         {elements.length > 0 && (
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-            <ul>
-            {elements.map((element, i) => (
-                <li key={i}>{element.title}</li>
+            <table>
+            {elements.map((element) => (
+                <tr key={element.id}>
+                  <th>{element.title}</th>
+                  <td>{element.body}</td>
+                </tr>
             ))}
-        </ul>
+            </table>
           </div>
         )}
       </div>
     )
   }
 }
+
 Posts.propTypes = {
   selectedPage: PropTypes.string.isRequired,
   elements: PropTypes.array.isRequired,

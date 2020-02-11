@@ -17,12 +17,14 @@ class Users extends Component {
     const { dispatch, selectedPage } = this.props
     dispatch(fetchElementsIfNeeded(selectedPage))
   }
+
   componentDidUpdate(prevProps) {
     if (this.props.selectedPage !== prevProps.selectedPage) {
-      const { dispatch, selectedPage } = this.props
-      dispatch(fetchElementsIfNeeded(selectedPage))
+      	const { dispatch, selectedPage } = this.props
+      	dispatch(fetchElementsIfNeeded(selectedPage))
     }
   }
+
   handleRefreshClick(e) {
     e.preventDefault()
     const { dispatch, selectedPage } = this.props
@@ -49,17 +51,17 @@ class Users extends Component {
         {elements.length > 0 && (
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
           	<table>
-        		{elements.map((element, i) => (
-          			<tr key={i}>
+        		{elements.map((element) => (
+          			<tr key={element.id}>
           				<th>{element.name}</th>
-          				<th>{element.username}</th>
-          				<th>Adress: {element.address.street} {element.address.suite} {element.address.city} {element.address.zipcode}</th>
-          				<th>Phone: {element.phone}</th>
-          				<th>Geo: {element.address.geo.lat} lat, {element.address.geo.lng} lng,</th>
-          				<th>Web: <a href={`http:/\/${element.website}`} target='_blank'>{element.website}</a></th>
-          				<th>Company: {element.company.name} Slogan: {element.company.catchPhrase} Niche: {element.company.bs}</th>
+          				<td>{element.username}</td>
+          				<td>Address: {element.address.street} {element.address.suite} {element.address.city} {element.address.zipcode}</td>
+          				<td>Phone: {element.phone}</td>
+          				<td>Geo: {element.address.geo.lat} lat, {element.address.geo.lng} lng</td>
+          				<td>Web: <a href={`http:/\/${element.website}`} target='_blank'>{element.website}</a></td>
+          				<td>Company: {element.company.name} Slogan: {element.company.catchPhrase} Niche: {element.company.bs}</td>
           			</tr>
-        		))}
+        		))};
         	</table>
           </div>
         )}
