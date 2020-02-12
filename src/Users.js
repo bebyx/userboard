@@ -46,19 +46,29 @@ class Users extends Component {
         {elements.length > 0 && (
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
           	<table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Username</th>
+                  <th>Address</th>
+                  <th>Phone</th>
+                  <th>Website</th>
+                  <th>Company</th>
+                </tr>
+              </thead>
           		<tbody>
         		{elements.map((element) => (
           			<tr key={element.id}>
-          				<th>{element.name}</th>
+          				<tb>{element.name}</tb>
           				<td>{element.username}</td>
                   <td>
-                    Address: {element.address && element.address.street },&nbsp;
-                             {element.address && element.address.suite },&nbsp;
-                             {element.address && element.address.city },&nbsp;
-                             {element.address && element.address.zipcode }
+                    {element.address && element.address.street },&nbsp;
+                    {element.address && element.address.suite },&nbsp;
+                    {element.address && element.address.city },&nbsp;
+                    {element.address && element.address.zipcode }
                   </td>
-          				<td>Phone: {element.phone}</td>
-          				<td>Web: <a href={`http://${element.website}`} target='_blank' rel="noopener noreferrer">{element.website}</a></td>
+          				<td>{element.phone}</td>
+          				<td><a href={`http://${element.website}`} target='_blank' rel="noopener noreferrer">{element.website}</a></td>
                   <td>
                     Company: { element.company && element.company.name }<br/>
                     Slogan: { element.company && element.company.catchPhrase }<br/>
