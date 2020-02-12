@@ -20,8 +20,7 @@ class Posts extends Component {
   }
 
   componentWillUnmount() {
-    const {dispatch} = this.props;
-    dispatch(invalidatePage(''))
+
   }
 
   handleRefreshClick(e) {
@@ -91,4 +90,11 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Posts));
+export default withRouter(connect(
+  mapStateToProps,
+  null,
+  null,
+  {
+    pure: false
+  }
+  )(Posts));

@@ -19,6 +19,10 @@ class Users extends Component {
     this.props.dispatch(fetchElementsIfNeeded(this.props.slug))
   }
 
+  componentWillUnmount() {
+
+  }
+
   handleRefreshClick(e) {
     e.preventDefault()
     const { dispatch, selectedPage } = this.props
@@ -51,14 +55,12 @@ class Users extends Component {
           			<tr key={element.id}>
           				<th>{element.name}</th>
           				<td>{element.username}</td>
-          				<td>Address: {element.address.street} {element.address.suite} {element.address.city} {element.address.zipcode}</td>
+                  <td>{element.company.name}</td>
           				<td>Phone: {element.phone}</td>
-          				<td>Geo: {element.address.geo.lat} lat, {element.address.geo.lng} lng</td>
           				<td>Web: <a href={`http://${element.website}`} target='_blank' rel="noopener noreferrer">{element.website}</a></td>
-          				<td>Company: {element.company.name} Slogan: {element.company.catchPhrase} Niche: {element.company.bs}</td>
           			</tr>
         		))};
-        		</tbody>
+        		  </tbody>
         	</table>
           </div>
         )}
@@ -91,4 +93,11 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Users));
+export default withRouter(connect(
+  mapStateToProps,
+  null,
+  null,
+  {
+    pure: false
+  }
+  )(Users));

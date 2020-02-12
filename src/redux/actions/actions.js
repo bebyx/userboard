@@ -31,13 +31,13 @@ function receiveElements(url, json) {
   return {
     type: RECEIVE_ELEMENTS,
     url,
-    elements: json.map(child => child),
+    elements: json,
     receivedAt: Date.now()
   }
 }
 
 
-function fetchElements(url) {
+export function fetchElements(url) {
   return dispatch => {
     dispatch(requestElements(url))
     return fetch(`https://jsonplaceholder.typicode.com/${url}`)
