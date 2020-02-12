@@ -6,23 +6,22 @@ import {
   fetchElementsIfNeeded,
   invalidatePage
 } from './redux/actions/actions'
+import { withRouter } from 'react-router-dom';
 
 class Posts extends Component {
   constructor(props) {
     super(props)
     this.handleRefreshClick = this.handleRefreshClick.bind(this)
   }
+
   componentDidMount() {
     this.props.dispatch(selectPage(this.props.slug))
-    const { dispatch, selectedPage } = this.props
-    dispatch(fetchElementsIfNeeded(selectedPage))
+    this.props.dispatch(fetchElementsIfNeeded(this.props.slug))
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.selectedPage !== prevProps.selectedPage) {
-      const { dispatch, selectedPage } = this.props
-      dispatch(fetchElementsIfNeeded(selectedPage))
-    }
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch(invalidatePage(''))
   }
 
   handleRefreshClick(e) {
@@ -31,6 +30,7 @@ class Posts extends Component {
     dispatch(invalidatePage(selectedPage))
     dispatch(fetchElementsIfNeeded(selectedPage))
   }
+
   render() {
     const { selectedPage, elements, isFetching, lastUpdated } = this.props
     return (
@@ -51,12 +51,14 @@ class Posts extends Component {
         {elements.length > 0 && (
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
             <table>
+              <tbody>
             {elements.map((element) => (
                 <tr key={element.id}>
                   <th>{element.title}</th>
                   <td>{element.body}</td>
                 </tr>
             ))}
+              </tbody>
             </table>
           </div>
         )}
@@ -72,6 +74,7 @@ Posts.propTypes = {
   lastUpdated: PropTypes.number,
   dispatch: PropTypes.func.isRequired
 }
+
 function mapStateToProps(state) {
   const { selectedPage, elementsByPage } = state
   const { isFetching, lastUpdated, items: elements } = elementsByPage[
@@ -88,4 +91,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Posts)
+export default withRouter(connect(mapStateToProps)(Posts));

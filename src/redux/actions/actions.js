@@ -36,6 +36,7 @@ function receiveElements(url, json) {
   }
 }
 
+
 function fetchElements(url) {
   return dispatch => {
     dispatch(requestElements(url))

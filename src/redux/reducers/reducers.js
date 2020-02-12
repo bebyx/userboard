@@ -44,7 +44,9 @@ function elements(
   }
 }
 
-function elementsByPage(state = {}, action) {
+
+const elementsDefaultState = {}
+function elementsByPage(state = elementsDefaultState, action) {
   switch (action.type) {
     case INVALIDATE_PAGE:
     case RECEIVE_ELEMENTS:

@@ -6,23 +6,17 @@ import {
   fetchElementsIfNeeded,
   invalidatePage
 } from './redux/actions/actions'
+import { withRouter } from 'react-router-dom';
 
 class Users extends Component {
   constructor(props) {
     super(props)
     this.handleRefreshClick = this.handleRefreshClick.bind(this)
   }
+
   componentDidMount() {
     this.props.dispatch(selectPage(this.props.slug))
-    const { dispatch, selectedPage } = this.props
-    dispatch(fetchElementsIfNeeded(selectedPage))
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.selectedPage !== prevProps.selectedPage) {
-      	const { dispatch, selectedPage } = this.props
-      	dispatch(fetchElementsIfNeeded(selectedPage))
-    }
+    this.props.dispatch(fetchElementsIfNeeded(this.props.slug))
   }
 
   handleRefreshClick(e) {
@@ -31,6 +25,7 @@ class Users extends Component {
     dispatch(invalidatePage(selectedPage))
     dispatch(fetchElementsIfNeeded(selectedPage))
   }
+
   render() {
     const { selectedPage, elements, isFetching, lastUpdated } = this.props
     return (
@@ -51,6 +46,7 @@ class Users extends Component {
         {elements.length > 0 && (
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
           	<table>
+          		<tbody>
         		{elements.map((element) => (
           			<tr key={element.id}>
           				<th>{element.name}</th>
@@ -58,10 +54,11 @@ class Users extends Component {
           				<td>Address: {element.address.street} {element.address.suite} {element.address.city} {element.address.zipcode}</td>
           				<td>Phone: {element.phone}</td>
           				<td>Geo: {element.address.geo.lat} lat, {element.address.geo.lng} lng</td>
-          				<td>Web: <a href={`http:/\/${element.website}`} target='_blank'>{element.website}</a></td>
+          				<td>Web: <a href={`http://${element.website}`} target='_blank' rel="noopener noreferrer">{element.website}</a></td>
           				<td>Company: {element.company.name} Slogan: {element.company.catchPhrase} Niche: {element.company.bs}</td>
           			</tr>
         		))};
+        		</tbody>
         	</table>
           </div>
         )}
@@ -69,6 +66,7 @@ class Users extends Component {
     )
   }
 }
+
 Users.propTypes = {
   selectedPage: PropTypes.string.isRequired,
   elements: PropTypes.array.isRequired,
@@ -76,6 +74,7 @@ Users.propTypes = {
   lastUpdated: PropTypes.number,
   dispatch: PropTypes.func.isRequired
 }
+
 function mapStateToProps(state) {
   const { selectedPage, elementsByPage } = state
   const { isFetching, lastUpdated, items: elements } = elementsByPage[
@@ -92,4 +91,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Users)
+export default withRouter(connect(mapStateToProps)(Users));
