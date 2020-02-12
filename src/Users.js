@@ -19,10 +19,6 @@ class Users extends Component {
     this.props.dispatch(fetchElementsIfNeeded(this.props.slug))
   }
 
-  componentWillUnmount() {
-
-  }
-
   handleRefreshClick(e) {
     e.preventDefault()
     const { dispatch, selectedPage } = this.props
@@ -55,9 +51,19 @@ class Users extends Component {
           			<tr key={element.id}>
           				<th>{element.name}</th>
           				<td>{element.username}</td>
-                  <td>{element.company.name}</td>
+                  <td>
+                    Address: {element.address && element.address.street },&nbsp;
+                             {element.address && element.address.suite },&nbsp;
+                             {element.address && element.address.city },&nbsp;
+                             {element.address && element.address.zipcode }
+                  </td>
           				<td>Phone: {element.phone}</td>
           				<td>Web: <a href={`http://${element.website}`} target='_blank' rel="noopener noreferrer">{element.website}</a></td>
+                  <td>
+                    Company: { element.company && element.company.name }<br/>
+                    Slogan: { element.company && element.company.catchPhrase }<br/>
+                    Service: { element.company && element.company.bs }
+                  </td>
           			</tr>
         		))};
         		  </tbody>

@@ -19,10 +19,6 @@ class Posts extends Component {
     this.props.dispatch(fetchElementsIfNeeded(this.props.slug))
   }
 
-  componentWillUnmount() {
-
-  }
-
   handleRefreshClick(e) {
     e.preventDefault()
     const { dispatch, selectedPage } = this.props
