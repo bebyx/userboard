@@ -12,6 +12,7 @@ class Posts extends Component {
   constructor(props) {
     super(props)
     this.handleRefreshClick = this.handleRefreshClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
@@ -26,11 +27,32 @@ class Posts extends Component {
     dispatch(fetchElementsIfNeeded(selectedPage))
   }
 
+  handleChange(selectedUser) {
+    const { dispatch, selectedPage } = this.props
+    if (selectedUser.target.value === 'All') {
+      dispatch(invalidatePage(selectedPage))
+      dispatch(selectPage(this.props.slug))
+      dispatch(fetchElementsIfNeeded(this.props.slug))
+    } else {
+      dispatch(invalidatePage(selectedPage))
+      dispatch(selectPage('posts' + '?userId=' + selectedUser.target.value))
+      dispatch(fetchElementsIfNeeded("posts" + '?userId=' + selectedUser.target.value))
+    }
+
+  }
+
   render() {
     const { selectedPage, elements, isFetching, lastUpdated } = this.props
     return (
       <div>
         <h1 style={ {textTransform: `capitalize`} }> { selectedPage }</h1>
+        <select onChange={this.handleChange}>
+          {['All',1,2,3,4,5,6,7,8,9,10].map(e => (
+            <option value={e} key={e}>
+              {e}
+            </option>
+          ))}
+        </select>
         <p>
           {lastUpdated && (
             <span>
@@ -47,12 +69,15 @@ class Posts extends Component {
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
             <table>
               <tbody>
-            {elements.map((element) => (
+            {
+              elements.map((element) => (
                 <tr key={element.id}>
+                  <td>{element.userId}</td>
                   <th>{element.title}</th>
                   <td>{element.body}</td>
                 </tr>
-            ))}
+            ))
+            }
               </tbody>
             </table>
           </div>

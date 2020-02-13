@@ -62,10 +62,10 @@ class Users extends Component {
           				<tb>{element.name}</tb>
           				<td>{element.username}</td>
                   <td>
-                    {element.address && element.address.street },&nbsp;
-                    {element.address && element.address.suite },&nbsp;
-                    {element.address && element.address.city },&nbsp;
-                    {element.address && element.address.zipcode }
+                    { element.address && element.address.street },&nbsp;
+                    { element.address && element.address.suite },&nbsp;
+                    { element.address && element.address.city },&nbsp;
+                    { element.address && element.address.zipcode }
                   </td>
           				<td>{element.phone}</td>
           				<td><a href={`http://${element.website}`} target='_blank' rel="noopener noreferrer">{element.website}</a></td>
