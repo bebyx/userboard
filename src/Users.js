@@ -6,7 +6,7 @@ import {
   fetchElementsIfNeeded,
   invalidatePage
 } from './redux/actions/actions'
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class Users extends Component {
   constructor(props) {
@@ -80,6 +80,7 @@ class Users extends Component {
         	</table>
           </div>
         )}
+        <p><Link to="/posts"><button>Posts</button></Link></p>
       </div>
     )
   }
@@ -109,11 +110,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(
-  mapStateToProps,
-  null,
-  null,
-  {
-    pure: false
-  }
-  )(Users));
+export default withRouter(connect(mapStateToProps)(Users));
