@@ -40,7 +40,7 @@ function App() {
             <Users slug="users" />
           </Route>
           <Route path="/posts">
-            <Posts slug="posts" />
+            <PostsRoot />
           </Route>
           <Route path="/topics">
             <Topics />
@@ -96,6 +96,26 @@ function Topics() {
 function Topic() {
   let { topicId } = useParams();
   return <h3>Requested topic ID: {topicId}</h3>;
+}
+
+function PostsRoot() {
+  let match = useRouteMatch();
+
+  return (
+  <Switch>
+    <Route path={`${match.path}/:postId`}>
+      <Post />
+    </Route>
+    <Route path={match.path}>
+      <Posts slug={'posts'} />
+    </Route>
+  </Switch>
+  )
+}
+
+function Post() {
+  let { postId } = useParams();
+  return <h3>Requested post ID: {postId}</h3>;
 }
 
 export default App;
