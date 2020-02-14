@@ -64,7 +64,7 @@ class Post extends Component {
 
 Post.propTypes = {
   selectedPage: PropTypes.string.isRequired,
-  elements: PropTypes.array.isRequired,
+  elements: PropTypes.object.isRequired,
   isFetching: PropTypes.bool.isRequired,
   lastUpdated: PropTypes.number,
   dispatch: PropTypes.func.isRequired
