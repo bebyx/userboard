@@ -75,7 +75,7 @@ class Users extends Component {
                     Service: { element.company && element.company.bs }
                   </td>
           			</tr>
-        		))};
+        		))}
         		  </tbody>
         	</table>
           </div>
