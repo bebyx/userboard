@@ -7,6 +7,7 @@ import {
   invalidatePage
 } from './redux/actions/actions'
 import { withRouter } from 'react-router-dom';
+import Comments from './Comments'
 
 class Post extends Component {
   constructor(props) {
@@ -55,6 +56,9 @@ class Post extends Component {
                 </tr>
               </tbody>
             </table>
+            <React.Fragment>
+              <Comments id={ this.props.match.params.postId } />
+            </React.Fragment>
           </div>
         )}
       </div>
@@ -67,7 +71,12 @@ Post.propTypes = {
   elements: PropTypes.object.isRequired,
   isFetching: PropTypes.bool.isRequired,
   lastUpdated: PropTypes.number,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+
+  fetchData: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired,
+  hasErrored: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
 }
 
 function mapStateToProps(state) {

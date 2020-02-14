@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux'
+import {comments, commentsHasErrored, commentsIsLoading} from './commentsReducers'
+
 import {
   SELECT_PAGE,
   INVALIDATE_PAGE,
@@ -59,7 +61,10 @@ function elementsByPage(state = {}, action) {
 
 const rootReducer = combineReducers({
   elementsByPage,
-  selectedPage
+  selectedPage,
+  comments,
+  commentsHasErrored,
+  commentsIsLoading
 })
 
 export default rootReducer
