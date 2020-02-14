@@ -6,18 +6,17 @@ import {
   fetchElementsIfNeeded,
   invalidatePage
 } from './redux/actions/actions'
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-class Posts extends Component {
+class Post extends Component {
   constructor(props) {
     super(props)
     this.handleRefreshClick = this.handleRefreshClick.bind(this)
-    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
-    this.props.dispatch(selectPage(this.props.slug))
-    this.props.dispatch(fetchElementsIfNeeded(this.props.slug))
+    this.props.dispatch(selectPage(this.props.slug + '/' + this.props.match.params.postId))
+    this.props.dispatch(fetchElementsIfNeeded(this.props.slug + '/' + this.props.match.params.postId))
   }
 
   handleRefreshClick(e) {
@@ -27,32 +26,11 @@ class Posts extends Component {
     dispatch(fetchElementsIfNeeded(selectedPage))
   }
 
-  handleChange(selectedUser) {
-    const { dispatch, selectedPage } = this.props
-    if (selectedUser.target.value === 'All') {
-      dispatch(invalidatePage(selectedPage))
-      dispatch(selectPage(this.props.slug))
-      dispatch(fetchElementsIfNeeded(this.props.slug))
-    } else {
-      dispatch(invalidatePage(selectedPage))
-      dispatch(selectPage('posts' + '?userId=' + selectedUser.target.value))
-      dispatch(fetchElementsIfNeeded("posts" + '?userId=' + selectedUser.target.value))
-    }
-
-  }
-
   render() {
     const { selectedPage, elements, isFetching, lastUpdated } = this.props
     return (
       <div>
         <h1 style={ {textTransform: `capitalize`} }> { selectedPage }</h1>
-        <select onChange={this.handleChange}>
-          {['All',1, 2,3,4,5,6,7,8,9,10].map(e => (
-            <option value={e} key={e}>
-              {e}
-            </option>
-          ))}
-        </select>
         <p>
           {lastUpdated && (
             <span>
@@ -65,20 +43,16 @@ class Posts extends Component {
         </p>
         {isFetching && elements.length === 0 && <h2>Loading...</h2>}
         {!isFetching && elements.length === 0 && <h2>Empty.</h2>}
-        {elements.length > 0 && (
+        {elements && (
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
             <table>
               <tbody>
-            {
-              elements.map((element) => (
-                <tr key={element.id}>
-                  <td>{element.userId}</td>
-                  <th>{element.title}</th>
-                  <td>{element.body}</td>
-                  <td><Link to={`${this.props.match.url}/${element.id}`}><button>Details</button></Link></td>
+                <tr>
+                  <td>{elements.id}</td>
+                  <td>{elements.userId}</td>
+                  <th>{elements.title}</th>
+                  <td>{elements.body}</td>
                 </tr>
-            ))
-            }
               </tbody>
             </table>
           </div>
@@ -88,7 +62,7 @@ class Posts extends Component {
   }
 }
 
-Posts.propTypes = {
+Post.propTypes = {
   selectedPage: PropTypes.string.isRequired,
   elements: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
@@ -112,4 +86,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Posts));
+export default withRouter(connect(mapStateToProps)(Post));
