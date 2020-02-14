@@ -59,7 +59,7 @@ class Users extends Component {
           		<tbody>
         		{elements.map((element) => (
           			<tr key={element.id}>
-          				<tb>{element.name}</tb>
+          				<td>{element.name}</td>
           				<td>{element.username}</td>
                   <td>
                     { element.address && element.address.street },&nbsp;

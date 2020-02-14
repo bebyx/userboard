@@ -75,7 +75,9 @@ class Posts extends Component {
                   <td>{element.userId}</td>
                   <th>{element.title}</th>
                   <td>{element.body}</td>
-                  <td><Link to={`${this.props.match.url}/${element.id}`}><button>Details</button></Link></td>
+                  <td>
+                    <Link to={`${this.props.match.url}/${element.id}`}><button>Details</button></Link>
+                  </td>
                 </tr>
             ))
             }
