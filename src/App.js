@@ -11,6 +11,7 @@ import {
 import Users from './Users'
 import Posts from './Posts'
 import Post from './Post'
+import AddPost from './AddPost'
 
 function App() {
   return (
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route path="/users">
             <Users slug="users" />
+          </Route>
+          <Route path="/new">
+            <AddPost />
           </Route>
           <Route path="/posts">
             <PostsRoot />

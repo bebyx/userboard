@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { addPost } from './redux/actions/addPostActions';
+import { addPostFetchData } from './redux/actions/addPostActions';
 
 class AddPost extends Component {
 
@@ -54,7 +54,7 @@ class AddPost extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        addPostSuccess: state.addPostSuccess
+        addPostSuccess: state.addPostSuccess,
         hasErrored: state.addPostHasErrored,
         isLoading: state.addPostIsLoading
     };

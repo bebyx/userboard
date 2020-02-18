@@ -43,6 +43,6 @@ export function addPostFetchData(data) {
             })
             .then((response) => response.json())
             .then((json) => dispatch(addPostFetchDataSuccess(true)))
-            .catch(() => dispatch(commentsHasErrored(true)));
+            .catch(() => dispatch(addPostHasErrored(true)));
     };
 }
