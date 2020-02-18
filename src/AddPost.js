@@ -7,13 +7,30 @@ class AddPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: null,
+            userId: 1,
             title: '',
             body: ''
         };
 
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+    }
 
+    handleSubmit(e) {
+        e.preventDefault()
+
+        if (!this.state.title.length || !this.state.body.length) {
+            alert("All fields should be filled in!");
+            return;
+        }
+
+        this.props.fetchData(this.state)
+    }
+
+    handleChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
 
     render() {
@@ -28,7 +45,8 @@ class AddPost extends Component {
         return (
             <div>
                 <h1>Add Post</h1>
-                
+                <input name="title" value={this.state.title} onChange={this.handleChange}/>
+                <textarea name="body" value={this.state.body} onChange={this.handleChange}/>
             </div>
         );
     }
