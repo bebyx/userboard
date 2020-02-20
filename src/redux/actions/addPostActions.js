@@ -41,8 +41,9 @@ export function addPostFetchData(data) {
 
                 return response;
             })
-            .then((response) => response.json())
-            .then((json) => dispatch(addPostFetchDataSuccess(true)))
+            .then(response => response.json())
+            .then(json => console.log(json))
+            //.then(dispatch(addPostFetchDataSuccess(true)))
             .catch(() => dispatch(addPostHasErrored(true)));
     };
 }

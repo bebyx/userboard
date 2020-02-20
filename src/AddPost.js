@@ -7,9 +7,9 @@ class AddPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: 1,
             title: '',
-            body: ''
+            body: '',
+            userId: 1
         };
 
         this.handleSubmit = this.handleSubmit.bind(this)
