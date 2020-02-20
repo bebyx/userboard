@@ -25,6 +25,12 @@ class AddPost extends Component {
         }
 
         this.props.fetchData(this.state)
+
+        this.setState ({
+            title: '',
+            body: '',
+            userId: 1
+        })
     }
 
     handleChange(e) {
@@ -45,9 +51,16 @@ class AddPost extends Component {
         return (
             <div>
                 <h1>Add Post</h1>
-                <input name="title" value={this.state.title} onChange={this.handleChange}/>
-                <textarea name="body" value={this.state.body} onChange={this.handleChange}/>
-                <button onClick={this.handleSubmit}>Submit</button>
+                <p><input name="title" value={this.state.title} onChange={this.handleChange}/></p>
+                <p><textarea name="body" value={this.state.body} onChange={this.handleChange}/></p>
+                <select name="userId" onChange={this.handleChange}>
+                  {[1,2,3,4,5,6,7,8,9,10].map(e => (
+                    <option value={e} key={e}>
+                      {e}
+                    </option>
+                  ))}
+                </select>
+                <p><button onClick={this.handleSubmit}>Submit</button></p>
             </div>
         );
     }
