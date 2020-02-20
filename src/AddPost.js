@@ -29,7 +29,6 @@ class AddPost extends Component {
         this.setState ({
             title: '',
             body: '',
-            userId: 1
         })
     }
 
