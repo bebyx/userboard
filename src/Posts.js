@@ -63,7 +63,7 @@ class Posts extends Component {
             <button onClick={this.handleRefreshClick}>Refresh</button>
           )}
         </p>
-        <p><Link onClick={ (event) => {event.preventDefault(); window.open('/new', 'newwindow', 'width=500, height=750'); return false;} }><button>Add new post</button></Link></p>
+        <p><Link to="/new" onClick={ (event) => {event.preventDefault(); window.open('/new', 'newwindow', 'width=500, height=750'); return false;} }><button>Add new post</button></Link></p>
         {isFetching && elements.length === 0 && <h2>Loading...</h2>}
         {!isFetching && elements.length === 0 && <h2>Empty.</h2>}
         {elements.length > 0 && (
