@@ -47,6 +47,7 @@ class AddPost extends Component {
                 <h1>Add Post</h1>
                 <input name="title" value={this.state.title} onChange={this.handleChange}/>
                 <textarea name="body" value={this.state.body} onChange={this.handleChange}/>
+                <button onClick={this.handleSubmit}>Submit</button>
             </div>
         );
     }
