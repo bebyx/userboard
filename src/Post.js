@@ -6,6 +6,7 @@ import {
   fetchElementsIfNeeded,
   invalidatePage
 } from './redux/actions/actions'
+import { deletePostFetchData } from './redux/actions/deletePostActions';
 import { withRouter } from 'react-router-dom';
 import Comments from './Comments'
 
@@ -13,11 +14,14 @@ class Post extends Component {
   constructor(props) {
     super(props)
     this.handleRefreshClick = this.handleRefreshClick.bind(this)
+    this.handleDeletePost = this.handleDeletePost.bind(this)
   }
 
   componentDidMount() {
-    this.props.dispatch(selectPage(this.props.slug + '/' + this.props.match.params.postId))
-    this.props.dispatch(fetchElementsIfNeeded(this.props.slug + '/' + this.props.match.params.postId))
+    const dispatch = this.props.dispatch
+    const url = this.props.slug + '/' + this.props.match.params.postId;
+    dispatch(selectPage(url));
+    dispatch(fetchElementsIfNeeded(url));
   }
 
   handleRefreshClick(e) {
@@ -25,6 +29,11 @@ class Post extends Component {
     const { dispatch, selectedPage } = this.props
     dispatch(invalidatePage(selectedPage))
     dispatch(fetchElementsIfNeeded(selectedPage))
+  }
+
+  handleDeletePost(e) {
+    e.preventDefault()
+    this.props.dispatch(deletePostFetchData(this.props.match.params.postId))
   }
 
   render() {
@@ -56,6 +65,7 @@ class Post extends Component {
                 </tr>
               </tbody>
             </table>
+            <p><button onClick={this.handleDeletePost}>Delete</button></p>
             <React.Fragment>
               <Comments id={ this.props.match.params.postId } />
             </React.Fragment>
@@ -72,11 +82,6 @@ Post.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   lastUpdated: PropTypes.number,
   dispatch: PropTypes.func.isRequired,
-
-  fetchData: PropTypes.func.isRequired,
-  comments: PropTypes.array.isRequired,
-  hasErrored: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired
 }
 
 function mapStateToProps(state) {

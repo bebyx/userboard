@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { addPostFetchData } from './redux/actions/addPostActions';
+import { withRouter } from 'react-router-dom';
 
 class AddPost extends Component {
 
@@ -79,4 +80,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddPost);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPost));
