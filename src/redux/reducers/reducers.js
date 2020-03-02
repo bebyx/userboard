@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import {comments, commentsHasErrored, commentsIsLoading} from './commentsReducers'
 import {addPostHasErrored, addPostIsLoading} from './addPostReducers'
 import {deletePostHasErrored, deletePostIsLoading} from './deletePostReducers'
+import {putPostHasErrored, putPostIsLoading} from './putPostReducers'
 
 import {
   SELECT_PAGE,
@@ -70,7 +71,9 @@ const rootReducer = combineReducers({
   addPostHasErrored, 
   addPostIsLoading,
   deletePostHasErrored, 
-  deletePostIsLoading
+  deletePostIsLoading,
+  putPostHasErrored,
+  putPostIsLoading
 })
 
 export default rootReducer
