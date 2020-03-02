@@ -7,6 +7,7 @@ import {
   invalidatePage
 } from './redux/actions/actions'
 import { deletePostFetchData } from './redux/actions/deletePostActions';
+import { putPostFetchData } from './redux/actions/putPostActions';
 import { withRouter } from 'react-router-dom';
 import Comments from './Comments'
 
@@ -15,6 +16,7 @@ class Post extends Component {
     super(props)
     this.handleRefreshClick = this.handleRefreshClick.bind(this)
     this.handleDeletePost = this.handleDeletePost.bind(this)
+    this.handleEditPost = this.handleEditPost.bind(this)
   }
 
   componentDidMount() {
@@ -29,6 +31,15 @@ class Post extends Component {
     const { dispatch, selectedPage } = this.props
     dispatch(invalidatePage(selectedPage))
     dispatch(fetchElementsIfNeeded(selectedPage))
+  }
+
+  handleEditPost(e) {
+    e.preventDefault()
+    this.props.dispatch(putPostFetchData(this.props.match.params.postId, {id: `${this.props.match.params.postId}`,
+                                                                          title: this.props.elements.title,
+                                                                          body: this.props.elements.body,
+                                                                          userId: this.props.elements.userId
+                                                                          }))
   }
 
   handleDeletePost(e) {
@@ -65,6 +76,7 @@ class Post extends Component {
                 </tr>
               </tbody>
             </table>
+            <p><button onClick={this.handleEditPost}>Edit</button></p>
             <p><button onClick={this.handleDeletePost}>Delete</button></p>
             <React.Fragment>
               <Comments id={ this.props.match.params.postId } />
